@@ -1,0 +1,53 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="https://github.com/avaloniaui"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Dbf2XlsxConverter.ViewModels"
+        x:Class="Dbf2XlsxConverter.MainWindow"
+        Title="DBF → XLSX Мультиконвертер" Width="830" Height="590"
+        mc:Ignorable="d"
+        Icon="avares://Dbf2XlsxConverter.CrossPlat/Assets/appicon.ico"
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+  <Window.DataContext>
+    <vm:MainViewModel/>
+  </Window.DataContext>
+  <Grid Margin="12">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+      <Button Content="Добавить файлы" Margin="0,0,8,0" Click="AddFiles_Click"/>
+      <Button Content="Выбрать папку вывода" Click="SelectOutput_Click" Margin="0,0,8,0"/>
+      <TextBlock Text="Папка вывода:" VerticalAlignment="Center"/>
+      <TextBox Width="220" Text="{Binding OutputFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Margin="4,0"/>
+      <TextBlock Text="Потоки:" VerticalAlignment="Center" Margin="10,0,0,0"/>
+      <NumericUpDown Width="60" Minimum="1" Maximum="16" Value="{Binding MaxDegreeOfParallelism}" Margin="3,0"/>
+      <Button Content="Старт" Command="{Binding StartConversionCommand}" Margin="14,0,0,0"/>
+    </StackPanel>
+    <Border Grid.Row="1" BorderBrush="#878787" BorderThickness="1" CornerRadius="6" Margin="0,0,0,10" Background="#f9fafc"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+            PointerPressed="Files_Drop" DragDrop.Drop="Files_Drop" DragDrop.DragOver="Files_DragOver">
+      <DockPanel>
+        <TextBlock Text="Перетащите сюда .dbf-файлы…" Foreground="#999" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+      </DockPanel>
+    </Border>
+    <DataGrid Grid.Row="2" Items="{Binding FilesQueue}" AutoGenerateColumns="False" Margin="0,6,0,0" Height="240">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Файл" Binding="SourcePath" Width="*"/>
+        <DataGridTextColumn Header="Статус" Binding="Status" Width="90"/>
+        <DataGridTextColumn Header="Сообщение" Binding="ErrorMessage" Width="180"/>
+        <DataGridTextColumn Header="Длительность" Binding="Duration" Width="70"/>
+        <DataGridTemplateColumn Header="Прогресс" Width="100">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <ProgressBar Minimum="0" Maximum="100" Value="{Binding Progress}" Height="18"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+      </DataGrid.Columns>
+    </DataGrid>
+    <TextBox Grid.Row="3" IsReadOnly="True" Height="60" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" FontSize="12" BorderBrush="#b8b8b8" BorderThickness="1" Foreground="#444" Text="{Binding FilesQueue[0].ErrorMessage, FallbackValue='Здесь будет отображаться лог ошибок...'}"/>
+  </Grid>
+</Window>

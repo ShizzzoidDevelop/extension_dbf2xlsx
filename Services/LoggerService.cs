@@ -1,5 +1,6 @@
-using System;
 using Serilog;
+using System;
+using System.IO;
 
 namespace Dbf2XlsxConverter.Services
 {
@@ -11,8 +12,9 @@ namespace Dbf2XlsxConverter.Services
 
         private LoggerService()
         {
+            var logPath = Path.Combine(AppContext.BaseDirectory, "log.txt");
             _logger = new LoggerConfiguration()
-                .WriteTo.File("log.txt", rollingInterval: RollingInterval.Day)
+                .WriteTo.File(logPath, rollingInterval: RollingInterval.Infinite)
                 .CreateLogger();
         }
 
@@ -26,15 +28,14 @@ namespace Dbf2XlsxConverter.Services
                 }
             }
         }
-
         public void LogInfo(string message) => _logger.Information(message);
         public void LogError(string message, Exception ex = null) => _logger.Error(ex, message);
         public void LogOperationResult(string src, string dst, TimeSpan dur, Exception err = null)
         {
             if (err == null)
-                LogInfo($"УСПЕХ: {src} -> {dst}, {dur:hh\\:mm\\:ss}");
+                LogInfo($"SUCCESS: {src} -> {dst}, {dur:hh\\:mm\\:ss}");
             else
-                LogError($"ОШИБКА: {src} -> {dst}, {dur:hh\\:mm\\:ss}: {err.Message}", err);
+                LogError($"ERROR: {src} -> {dst}, {dur:hh\\:mm\\:ss}: {err.Message}", err);
         }
     }
 }

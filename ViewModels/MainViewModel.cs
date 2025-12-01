@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Dbf2XlsxConverter.Models;
 using Dbf2XlsxConverter.Services;
+using System.Linq;
 
 namespace Dbf2XlsxConverter.ViewModels
 {
@@ -23,7 +24,7 @@ namespace Dbf2XlsxConverter.ViewModels
             set { _maxDegreeOfParallelism = value; OnPropertyChanged(); }
         }
 
-        string _outputFolder;
+        string _outputFolder = System.IO.Directory.GetCurrentDirectory();
         public string OutputFolder
         {
             get => _outputFolder;
@@ -46,7 +47,15 @@ namespace Dbf2XlsxConverter.ViewModels
 
         private void AddFiles(object param)
         {
-            // Реализуется в MainWindow через FileDialog/DragDrop и прокидывается через параметр
+            // Заполняется через поля и методы View, здесь только добавление
+            if (param is string[] files)
+            {
+                foreach (var f in files)
+                {
+                    if (!FilesQueue.Any(q => q.SourcePath == f))
+                        FilesQueue.Add(new QueuedFile { SourcePath = f, Status = FileStatus.Queued, Progress = 0 });
+                }
+            }
         }
 
         private void RemoveFile(object param)
@@ -68,4 +77,3 @@ namespace Dbf2XlsxConverter.ViewModels
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
     }
 }
-// ... RelayCommand реализуется отдельно ...
