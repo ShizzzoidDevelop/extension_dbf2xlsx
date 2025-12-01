@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2nZzKyTwSic=",
+  "dgSpecHash": "roUzfA8SZwY=",
   "success": true,
   "projectFilePath": "/Users/timataskin/Desktop/extension_dbf2xlsx/Dbf2XlsxConverter.CrossPlat/Dbf2XlsxConverter.CrossPlat.csproj",
   "expectedPackageFiles": [
@@ -43,9 +43,11 @@
     "/Users/timataskin/.nuget/packages/system.io.packaging/8.0.1/system.io.packaging.8.0.1.nupkg.sha512",
     "/Users/timataskin/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512",
     "/Users/timataskin/.nuget/packages/tmds.dbus.protocol/0.21.2/tmds.dbus.protocol.0.21.2.nupkg.sha512",
+    "/Users/timataskin/.nuget/packages/microsoft.netcore.app.ref/8.0.22/microsoft.netcore.app.ref.8.0.22.nupkg.sha512",
+    "/Users/timataskin/.nuget/packages/microsoft.netcore.app.runtime.osx-arm64/8.0.22/microsoft.netcore.app.runtime.osx-arm64.8.0.22.nupkg.sha512",
     "/Users/timataskin/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.22/microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512",
-    "/Users/timataskin/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.22/microsoft.netcore.app.host.osx-arm64.8.0.22.nupkg.sha512",
-    "/Users/timataskin/.nuget/packages/microsoft.netcore.app.ref/8.0.22/microsoft.netcore.app.ref.8.0.22.nupkg.sha512"
+    "/Users/timataskin/.nuget/packages/microsoft.aspnetcore.app.runtime.osx-arm64/8.0.22/microsoft.aspnetcore.app.runtime.osx-arm64.8.0.22.nupkg.sha512",
+    "/Users/timataskin/.nuget/packages/microsoft.netcore.app.host.osx-arm64/8.0.22/microsoft.netcore.app.host.osx-arm64.8.0.22.nupkg.sha512"
   ],
   "logs": []
 }
